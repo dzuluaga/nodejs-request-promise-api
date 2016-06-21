@@ -9,7 +9,7 @@ app.get('/*', function (req, res) {
   var query = url.parse(req.url).query; //get query params from url
   request('http://lyrics.wikia.com/api.php?' + query)
     .then(function (response) {
-      res.json(response.body);
+      res.json(JSON.parse(response.body));
     })
     .catch(function (err) {
       res.send(err);
