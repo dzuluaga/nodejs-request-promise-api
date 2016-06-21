@@ -1,7 +1,30 @@
 nodejs-request-promise-api
 ==========================
-Here's an example of a Node.js API Proxy ready to be deployed in Apigee.
+Here's an example of a promise-enabled Node.js API Proxy ready to be deployed in Apigee.
 
+#### Why promises?
+Node.js promises subject has been documented extensively by many tutorials online. So, it's out of the scope of this sample to explain the (why)[https://alexperry.io/node/2015/03/25/promises-in-node.html] here. However, I noticed there are few examples of Apigee API Proxies explained with working code. So, I decided to write rather a contrived example to be used as a reference for new developers coming to the platform. So, next time they need to write one, you don't have to start from scratch. Hope it helps!
+
+#### Show me the code?
+```javascript
+var express = require('express')
+    app = express(),
+    request = require('request'),
+    url = require('url'),
+    promise = require('bluebird'), // you'll need bluebird or other module to convert callbacks to promises
+    request = promise.promisify(require('request')); // promisify the request module
+
+app.get('/*', function (req, res) {
+  var query = url.parse(req.url).query; //get query params from url
+  request('http://lyrics.wikia.com/api.php?' + query) // use promisified request module
+    .then(function (response) { //this is way clean than using callbacks!
+      res.json(JSON.parse(response.body));
+    })
+    .catch(function (err) {
+      res.send(err);
+    })
+})
+```
 
 #### How can I deploy this API Proxy?
 
