@@ -2,16 +2,14 @@ var express = require('express')
     app = express(),
     request = require('request'),
     url = require('url'),
-    promise = require('bluebird'),
-    request = promise.promisify(require('request'));
+    promise = require('bluebird'), // you'll need bluebird or other module to convert callbacks to promises
+    request = promise.promisify(require('request')); // 
 
 app.get('/*', function (req, res) {
   var query = url.parse(req.url).query; //get query params from url
-  //req.pipe(request('http://lyrics.wikia.com/api.php?' + query)).pipe(res);
   request('http://lyrics.wikia.com/api.php?' + query)
     .then(function (response) {
-      //console.log(response.body);
-      res.send(response.body);
+      res.json(response.body);
     })
     .catch(function (err) {
       res.send(err);
