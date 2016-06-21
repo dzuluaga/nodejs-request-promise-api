@@ -5,16 +5,20 @@ Here's an example of a Node.js API Proxy ready to be deployed in Apigee.
 
 #### How can I deploy this API Proxy?
 
+### deploy with Deploy Now
+Deploy this Node.js app to Apigee with a single click, click below:
+
+<a href="https://deploynow.apigee.com/login-form/?repo=https://github.com/dzuluaga/nodejs-request-promise-api.git&apiFolder=/&makeScript=make.sh" target="_blank">
+<img src="https://raw.githubusercontent.com/apigee/apigee-deploy-now/master/images/deploy_to_apigee.png" alt="Deploy to Apigee">
+</a>
+
 ### deploy with apigeetool
 The following command will deploy this Node.js App to Apigee.
 `apigeetool deploynodeapp  -u $ae_username -p $ae_password -o testmyapi -e test -n music-nodejs-request-promise-api -d . -m app.js -b /music-nodejs-request-promise-api -v default -V -U`
 
-### deploy with Deploy Now
-
-
 
 #### How can I test this API Proxy?
-
+Call this API by using this sample URL:
 ```
 $ curl "http://testmyapi-test.apigee.net/music-nodejs-request-promise-api?action=lyrics&artist=radiohead&fmt=json"
 
